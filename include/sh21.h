@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/20 02:02:40 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/21 02:56:43 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct      s_cmd
     t_red           *red;
 }                   t_cmd;
 
-
+void                printer();
 void                env_to_list(t_env **lst, char **env);
 void                free_list(t_cmd **cmd_list);
 void                errors(int op, t_cmd **cmd_list);
