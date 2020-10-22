@@ -6,7 +6,7 @@
 #    By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/27 02:25:57 by afaragi           #+#    #+#              #
-#    Updated: 2020/10/21 02:56:58 by afaragi          ###   ########.fr        #
+#    Updated: 2020/10/22 05:12:09 by afaragi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_NAME =	main.c \
 			sep_pipe_parser.c \
 			red_parser.c \
 			printer.c \
+			free_env.c \
 
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))

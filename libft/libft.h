@@ -6,18 +6,30 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:13:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/20 05:02:29 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/22 05:33:15 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <string.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <time.h>
+#include <grp.h>
+#include <fcntl.h>
+#include <pwd.h>
+#include <signal.h>
 # include "../include/sh21.h"
 
-
-
-# define BUFF_SIZE 10
+# define BUFF_SIZE 1
 
 
 typedef	struct		s_list

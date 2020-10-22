@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 05:01:11 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/22 03:51:33 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/22 06:00:06 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,37 +179,37 @@ void strdup_to_redlist_and_clean(t_red **red_list, t_cmd **line, int *index, int
     }
 }
 
-void red_cleaner(t_red **red_list, int start, t_cmd **line)
+void red_cleaner(t_red **red_list, int *start, t_cmd **line)
 {
     int counter;
 
     counter = index_placer((*red_list));
     if ((*red_list)->type & (RED_STDOUT_ERR))
     {
-        start = start - 1;
+        (*start) = (*start) - 1;
         counter++;
     }
     
-    while ((*line)->cmd[start] && (*line)->cmd[start] != ' ')
+    while ((*line)->cmd[(*start)] && (*line)->cmd[(*start)] != ' ')
     {
-        ft_move_replace(&(*line)->cmd[start]);
+        ft_move_replace(&(*line)->cmd[(*start)]);
         counter--;
         if(!counter)
-        if((*line)->cmd[start] == '>' || (*line)->cmd[start] == '<' || (*line)->cmd[start] == '&')
+        if((*line)->cmd[(*start)] == '>' || (*line)->cmd[(*start)] == '<' || (*line)->cmd[(*start)] == '&')
             return;
     }
 }
 
-void left_fd_filler(int i, t_cmd **line, t_red **red_list)
+void left_fd_filler(int *i, t_cmd **line, t_red **red_list)
 {
     int index;
     char *lfd;
     int counter;
 
-    index = i - 1;
+    index = (*i) - 1;
     while (index && (*line)->cmd[index] && ft_isdigit((*line)->cmd[index]))
         index--;
-    if (index && (index == (i - 1) || (*red_list)->type & RED_STDOUT_ERR))
+    if (index && (index == ((*i) - 1) || (*red_list)->type & RED_STDOUT_ERR))
     {
         (*red_list)->lfd = 0;
         red_cleaner(red_list, i, line);
@@ -217,11 +217,11 @@ void left_fd_filler(int i, t_cmd **line, t_red **red_list)
     }
     if (index)
         index = index + 1;
-    lfd = ft_strdup_from_to((*line)->cmd, index, i);
+    lfd = ft_strdup_from_to((*line)->cmd, index, (*i));
     (*red_list)->lfd = (unsigned int)ft_atoi(lfd);
     free(lfd);
     counter = index_placer((*red_list));
-    counter = counter + (i - index);
+    counter = counter + ((*i)- index);
     while ((*line)->cmd[index] && (*line)->cmd[index] != ' ')
     {
         ft_move_replace(&(*line)->cmd[index]);
@@ -247,7 +247,7 @@ int fd_file_filler(t_red **red_list, t_cmd **line, int *i)
     if ((*line)->cmd[index] && (*line)->cmd[index] == '-' && (*red_list)->type & (HERDOC))
         red_fdclose_add(line, &(*red_list)->type, index);
     strdup_to_redlist_and_clean(red_list, line, &index, i);
-    left_fd_filler((*i), line, red_list);
+    left_fd_filler(i, line, red_list);
     if (!(*red_list)->file[0] && !((*red_list)->type & (SWAP_LFD_TRFD | READ_FCUSFD)))
         return (0);
 
@@ -284,6 +284,8 @@ int red_parser(t_cmd **cmd_list)
                 ft_putendl_fd("syntax error near unexpected token", 2);
                 return (0);
             }
+            puts((*cmd_list)->cmd);
+            continue;
         }
         i++;
     }

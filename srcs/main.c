@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:25:56 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/22 03:42:15 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/22 05:38:22 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@ void print(t_cmd *cmd)
     puts("***CMD*****\n");
     ft_putendl(cmd->cmd);
     puts("********\n");
-    // if (cmd->red)
-    // {
-    //     while (cmd->red)
-    //     {
-    //         puts("***LFD*****\n");
-    //         ft_putnbr(cmd->red->lfd);
-    //          puts("\n***********\n");
-    //         puts("***FILE*****\n");
-    //         ft_putendl(cmd->red->file);
-    //          puts("***********\n");
-    //         puts("***RFD*****\n");
-    //         ft_putnbr(cmd->red->rfd);
-    //          puts("\n***********\n");
-    //         puts("***TYPE*****\n");
-    //         ft_putnbr(cmd->red->type);
-    //          puts("\n***********\n");
-    //         cmd->red = cmd->red->next;
-    //     }
-    // }
+    if (cmd->red)
+    {
+        while (cmd->red)
+        {
+            // puts("***LFD*****\n");
+            // ft_putnbr(cmd->red->lfd);
+            //  puts("\n***********\n");
+            puts("***FILE*****\n");
+            ft_putendl(cmd->red->file);
+             puts("***********\n");
+            // puts("***RFD*****\n");
+            // ft_putnbr(cmd->red->rfd);
+            //  puts("\n***********\n");
+            puts("***TYPE*****\n");
+            ft_putnbr(cmd->red->type);
+             puts("\n***********\n");
+            cmd->red = cmd->red->next;
+        }
+    }
     if (cmd->pipe)
         print(cmd->pipe);
     if (cmd->sep)
@@ -51,7 +51,6 @@ void core()
     {
         ft_putstr("\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
         read(1, (void *)buff, 1000);
-
         if ((cmd_line = parser(ft_strtrim((char *)buff))) == NULL)
         {
             ft_strclr(buff);
@@ -71,5 +70,6 @@ int main(int ac, char **av, char **environ)
     // printer();
     env_to_list(&env, environ);
     core();
+    free_env(&env);
     return (0);
 }
