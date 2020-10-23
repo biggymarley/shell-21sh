@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   free_leaks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/17 02:16:01 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/23 04:01:21 by afaragi          ###   ########.fr       */
+/*   Created: 2020/10/22 23:30:41 by afaragi           #+#    #+#             */
+/*   Updated: 2020/10/22 23:30:59 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/sh21.h"
+#include "libft.h"
 
-void errors(int op, t_cmd **cmd_list)
+void delkill(char **paths)
 {
+    int i;
 
-    ft_putendl_fd("Shell: parse error", 2);
-    del_cmd_lst(cmd_list);
+    i = 0;
+    if (paths)
+    {
+        while (paths[i])
+            free(paths[i++]);
+        free(paths);
+    }
 }

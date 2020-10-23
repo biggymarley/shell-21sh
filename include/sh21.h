@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/22 05:33:19 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/23 04:14:55 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ t_cmd               *parser(char *cmd_line);
 int                 red_parser(t_cmd **cmd_list);
 int                 red_checker(char *line, int i, char red1, char red2);
 int                 red_errors_checker(char *line, int i);
-void                free_env(t_env **env);
+void		           free_env(t_env **alst, void (*del)(void *, void *));
+int                execute_cmd(t_cmd *cmd_list, t_env **env, int cmd_nbr);
+char                **found_func(t_env *lst, char *cmd, char **str);
+t_env               *search_env(t_env *env, char *name);
+char                **ltot(t_env *env);
+int                 exec_red(t_red *red, int *f);
+int                 red_duper(t_red *red);
+void                del(void *s, void *str);
+void                del_cmd_lst(t_cmd **cmd);
 
 #endif

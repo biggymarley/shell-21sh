@@ -6,13 +6,13 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 05:01:11 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/22 06:00:06 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/22 23:18:42 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/sh21.h"
 
-// need to fix clear mode problems
+//
 
 int right_big_red_checker(char *line, int i, char red1, char red2)
 {
@@ -284,7 +284,7 @@ int red_parser(t_cmd **cmd_list)
                 ft_putendl_fd("syntax error near unexpected token", 2);
                 return (0);
             }
-            puts((*cmd_list)->cmd);
+            //puts((*cmd_list)->cmd);
             continue;
         }
         i++;

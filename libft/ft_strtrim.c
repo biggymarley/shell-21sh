@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 01:25:04 by afaragi           #+#    #+#             */
-/*   Updated: 2019/05/03 22:23:48 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/23 02:54:46 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char			*ft_strtrim(char const *s)
 			ft_remplir(tab, s, start, end);
 			return (tab);
 		}
-		return (0);
+		return (NULL);
 	}
-	return (0);
+	return (NULL);
 }

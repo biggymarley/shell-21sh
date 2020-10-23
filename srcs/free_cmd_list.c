@@ -6,29 +6,39 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 02:18:31 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/17 02:49:20 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/23 05:10:40 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/sh21.h"
 
-void    free_list(t_cmd **cmd_list)
+void del_cmd_lst(t_cmd **cmd)
 {
-    free((*cmd_list)->cmd);
-    if((*cmd_list)->red)
+    t_red *ptr;
+    
+    if (cmd)
+    {
+        free((*cmd)->cmd);
+        if ((*cmd)->red)
         {
-            while((*cmd_list)->red)
+            while ((*cmd)->red)
             {
-                (*cmd_list)->red->lfd = 0;
-                (*cmd_list)->red->rfd = 0;
-                (*cmd_list)->red->type = 0;
-                free((*cmd_list)->red->file);
-                (*cmd_list)->red = (*cmd_list)->red->next;
+                free((*cmd)->red->file);
+                (*cmd)->red->lfd = 0;
+                (*cmd)->red->rfd = 0;
+                (*cmd)->red->type = 0;
+                ptr = (*cmd)->red;
+                (*cmd)->red = (*cmd)->red->next;
+                ft_memdel((void **)&ptr);
             }
+            ft_memdel((void **)&(*cmd)->red);
         }
-    if((*cmd_list)->pipe)
-        free_list(&(*cmd_list)->pipe);
-    if((*cmd_list)->sep)
-        free_list(&(*cmd_list)->sep);
-    ft_memdel((void **)cmd_list);
+        if ((*cmd)->sep)
+        {
+            del_cmd_lst(&(*cmd)->sep);
+        }
+        if ((*cmd)->pipe)
+            del_cmd_lst(&(*cmd)->pipe);
+        ft_memdel((void **)cmd);
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:13:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/22 05:33:15 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/22 23:31:39 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,10 @@ void				ft_deletlist(t_list **alst,
 void				ft_deletone(t_list **alst,
 						void (*del)(void *, size_t, void *));
 char			**ft_strwhitesplit(char const *s);
-void	ft_whiteremplire(char *r, char const *s);
-int		ft_whitec(char const *s);
-int			get_next_line(const int fd, char **line);
+void			ft_whiteremplire(char *r, char const *s);
+int					ft_whitec(char const *s);
+int					get_next_line(const int fd, char **line);
 char				*ft_strdup_from_to(const char *s, int start, int end);
 void				ft_move_replace(char *str);
+void				delkill(char **paths);
 #endif
