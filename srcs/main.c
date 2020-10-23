@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:25:56 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/23 05:13:56 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/23 05:39:37 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int main(int ac, char **av, char **environ)
     t_cmd *cmd_line;
 
     env = NULL;
-    // printer();
+    //printer();
     env_to_list(&env, environ);
     core(&env);
     free_env(&env, del);

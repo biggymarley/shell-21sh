@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 04:43:33 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/23 05:13:39 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/23 05:39:07 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_cmd *parser(char *cmd_line)
     last_sep = NULL;
     cmd_list = (t_cmd *)ft_memalloc(sizeof(t_cmd));
     head = cmd_list;
-    if(cmd_line && cmd_line[0] == '\0')
+    if((ft_strlen(cmd_line)) == 0)
         return(NULL);
     while (cmd_line[i])
     {
