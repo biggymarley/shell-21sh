@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 01:51:26 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/23 02:25:40 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/24 04:50:11 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ int red_duper(t_red *red)
         else if (red->type & (RED_TRUNC | RED_APPND))
             fd_handler_red(red, fd_handler, 1, 0);
         else if (red->type & (HERSTR | HERDOC))
-        {
-            ft_putendl_fd(red->file, fd[1]);
+        {   
+            if(red->file[0])
+                ft_putendl_fd(red->file, fd[1]);
             fd_handler_red(red, fd[0], 0, 1);
         }
         else if (red->type & RED_STDOUT_ERR)

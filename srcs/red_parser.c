@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 05:01:11 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/22 23:18:42 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/24 05:28:31 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int right_fd_filler(t_red **red_list, t_cmd **line, int i)
     }
     if (index == i + 2 || (*red_list)->type & HERDOC)
     {
+        
         (*red_list)->rfd = 0;
         return (0);
     }
@@ -244,13 +245,12 @@ int fd_file_filler(t_red **red_list, t_cmd **line, int *i)
     if ((*red_list)->type & (SWAP_LFD_TRFD | READ_FCUSFD | HERDOC))
         if(right_fd_filler(red_list, line, (*i)) < 0)
             return (0);
-    if ((*line)->cmd[index] && (*line)->cmd[index] == '-' && (*red_list)->type & (HERDOC))
-        red_fdclose_add(line, &(*red_list)->type, index);
     strdup_to_redlist_and_clean(red_list, line, &index, i);
     left_fd_filler(i, line, red_list);
-    if (!(*red_list)->file[0] && !((*red_list)->type & (SWAP_LFD_TRFD | READ_FCUSFD)))
+    if (!((*red_list)->type & (SWAP_LFD_TRFD | READ_FCUSFD)) && !(*red_list)->file && !(*red_list)->file[0])
         return (0);
-
+    if((*red_list)->type & HERDOC)
+        read_herdoc((*red_list));
     return (1);
 }
 
@@ -284,7 +284,6 @@ int red_parser(t_cmd **cmd_list)
                 ft_putendl_fd("syntax error near unexpected token", 2);
                 return (0);
             }
-            //puts((*cmd_list)->cmd);
             continue;
         }
         i++;

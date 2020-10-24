@@ -6,7 +6,7 @@
 #    By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/27 02:25:57 by afaragi           #+#    #+#              #
-#    Updated: 2020/10/23 02:28:22 by afaragi          ###   ########.fr        #
+#    Updated: 2020/10/24 00:51:42 by afaragi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC_NAME =	main.c \
 			found_cmd.c \
 			ltot.c \
 			execute_red.c \
+			herdoc_reader.c \
 
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))

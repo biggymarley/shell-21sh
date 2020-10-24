@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:28:50 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/23 03:51:17 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/24 05:17:41 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void delkill(char **paths)
     {
         while (paths[i])
             free(paths[i++]);
-       //ft_memdel((void **)paths);
        free(paths);
     }
 }

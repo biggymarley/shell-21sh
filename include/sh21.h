@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/23 04:14:55 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/24 01:56:25 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ int                 exec_red(t_red *red, int *f);
 int                 red_duper(t_red *red);
 void                del(void *s, void *str);
 void                del_cmd_lst(t_cmd **cmd);
+void                read_herdoc(t_red *red);
 
 #endif
