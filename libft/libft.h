@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:13:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/22 23:31:39 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/28 05:09:33 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include "../include/sh21.h"
 
 # define BUFF_SIZE 1
-
 
 typedef	struct		s_list
 {

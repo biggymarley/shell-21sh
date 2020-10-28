@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:10:24 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/23 05:09:41 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/28 05:26:49 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,23 @@ char **cmd_finder(t_env *env, char *cmd)
 {
     char **line;
     char *ptr;
+    char **tmp;
 
     if (cmd)
     {
         ptr = ft_strtrim(cmd);
         if (ptr[0] == '\0')
+        {
+            free(ptr);
             return (NULL);
+        }
         line = ft_strsplit(ptr, ' ');
-        line = found_func(env, line[0], line);
+        rebase(line, 5, ' ');
+        tmp = found_func(env, line[0], line);
         free(ptr);
     }
-    return (line);
+    delkill(line);
+    return (tmp);
 }
 
 void fdhandler(int cmd_nbr, int fd_handler, int *fd, t_cmd *cmd_list)
@@ -103,7 +109,7 @@ int execute_cmd(t_cmd *cmd_list, t_env **env, int cmd_nbr)
     if (cmd && !cmd[0] && !cmd_list->red)
         return (0);
     duplicate_and_execute(cmd, env, cmd_nbr, cmd_list);
-     delkill(cmd);
+    delkill(cmd);
     if (cmd_list->pipe)
         execute_cmd(cmd_list->pipe, env, cmd_nbr + 1);
     else

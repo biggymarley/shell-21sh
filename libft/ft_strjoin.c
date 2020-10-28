@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 22:29:30 by afaragi           #+#    #+#             */
-/*   Updated: 2019/12/17 00:40:02 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/28 02:57:12 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		t[i] = '\0';
 		return (t);
 	}
+	free(t);
 	return (0);
 }

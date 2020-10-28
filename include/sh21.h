@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/24 01:56:25 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/28 05:14:01 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void                pipe_reader(char **str);
 int                 pipe_parser(t_cmd **cmd_list, char **cmd, int i);
 int                 sep_parser(t_cmd **cmd_list, char *cmd, int i, t_cmd **last_sep);
 int                 single_cmd_parser(t_cmd **cmd_list, char *cmd, int i, int last_index);
-t_cmd               *parser(char *cmd_line);
+t_cmd               *parser(char **cmd_line);
 int                 red_parser(t_cmd **cmd_list);
 int                 red_checker(char *line, int i, char red1, char red2);
 int                 red_errors_checker(char *line, int i);
@@ -80,5 +80,6 @@ int                 red_duper(t_red *red);
 void                del(void *s, void *str);
 void                del_cmd_lst(t_cmd **cmd);
 void                read_herdoc(t_red *red);
-
+int                cots_check(char **cmd_line, int balance);
+void                rebase(char **cmd, char c, char b);
 #endif

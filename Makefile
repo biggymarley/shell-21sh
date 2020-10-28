@@ -6,7 +6,7 @@
 #    By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/27 02:25:57 by afaragi           #+#    #+#              #
-#    Updated: 2020/10/24 00:51:42 by afaragi          ###   ########.fr        #
+#    Updated: 2020/10/28 05:18:42 by afaragi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIBFT_PATH = libft/
 INC = -I ./include/ -I $(LIBFT_PATH)
 SRC_DIR = srcs/
 OBJ_DIR = obj/
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -ggdb3
 
 SRC_NAME =	main.c \
 			environ_to_list.c \
@@ -31,7 +31,7 @@ SRC_NAME =	main.c \
 			ltot.c \
 			execute_red.c \
 			herdoc_reader.c \
-
+			cots_handler.c \
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))

@@ -6,7 +6,7 @@
 #    By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 20:51:03 by afaragi           #+#    #+#              #
-#    Updated: 2020/10/22 23:32:15 by afaragi          ###   ########.fr        #
+#    Updated: 2020/10/28 03:54:54 by afaragi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 NAME=libft.a
-SRC=get_next_line.c	\
+SRC=get_next_line.c\
 ft_atoi.c \
 ft_bzero.c  \
 ft_count_size.c \

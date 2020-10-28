@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 02:18:31 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/23 05:38:46 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/27 05:00:22 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void del_cmd_lst(t_cmd **cmd)
     
     if ((*cmd))
     {
-        free((*cmd)->cmd);
+        if((*cmd)->cmd)
+            free((*cmd)->cmd);
         if ((*cmd)->red)
         {
             while ((*cmd)->red)
@@ -34,9 +35,7 @@ void del_cmd_lst(t_cmd **cmd)
             ft_memdel((void **)&(*cmd)->red);
         }
         if ((*cmd)->sep)
-        {
             del_cmd_lst(&(*cmd)->sep);
-        }
         if ((*cmd)->pipe)
             del_cmd_lst(&(*cmd)->pipe);
         ft_memdel((void **)cmd);
