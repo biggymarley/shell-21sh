@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 01:51:26 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/24 04:50:11 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/29 05:54:15 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,7 @@ void fd_handler_red(t_red *red, int fd_handler, int a, int indice)
     else if (indice == 3)
         dup2(red->rfd, red->lfd);
     else
-    {
-        if (red->lfd)
-            dup2(fd_handler, red->lfd);
-        else
-            dup2(fd_handler, a);
-    }
+        dup2(fd_handler, red->lfd);
     if (!indice || indice == 2)
         close(fd_handler);
 }
@@ -59,7 +54,6 @@ int red_duper(t_red *red)
         return (0);
     while (red)
     {
-
         if (!exec_red(red, &fd_handler))
             return (0);
         if (red->type & READ_F_F)
@@ -67,19 +61,40 @@ int red_duper(t_red *red)
         else if (red->type & (RED_TRUNC | RED_APPND))
             fd_handler_red(red, fd_handler, 1, 0);
         else if (red->type & (HERSTR | HERDOC))
-        {   
-            if(red->file[0])
+        {
+            if (red->file)
                 ft_putendl_fd(red->file, fd[1]);
             fd_handler_red(red, fd[0], 0, 1);
         }
         else if (red->type & RED_STDOUT_ERR)
-            fd_handler_red(red, fd_handler, 0 , 2);
+            fd_handler_red(red, fd_handler, 0, 2);
         else if (red->type & SWAP_LFD_TRFD)
-            fd_handler_red(red, 0 ,0, 3);
+        {
+            fd_handler_red(red, 0, 0, 3);
+            if (red->type & (SWAP_LFD_TRFD | CLOSE_RFD))
+            {
+                if (red->rfd && red->lfd)
+                    close(red->rfd);
+                else if (red->lfd)
+                    close(red->lfd);
+                else if (red->rfd)
+                    close(red->rfd);
+            }
+        }
+        else if(red->type & READ_FCUSFD)
+        {
+            ft_putnbr(red->rfd);
+            if((dup2(red->rfd, 0)) == -1)
+            {
+                puts("here");
+                ft_putendl_fd("bad file descriptor", 2);
+                return(0);
+            }
+        }
         fd_handler = 0;
         red = red->next;
     }
     close(fd[1]);
     close(fd[0]);
-    return(1);
+    return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/28 05:14:01 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/29 00:18:35 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void                del_cmd_lst(t_cmd **cmd);
 void                read_herdoc(t_red *red);
 int                cots_check(char **cmd_line, int balance);
 void                rebase(char **cmd, char c, char b);
+void                rebase_all(char **cmd);
 #endif

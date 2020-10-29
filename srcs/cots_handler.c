@@ -6,11 +6,21 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 22:29:03 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/28 05:17:43 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/29 01:54:26 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/sh21.h"
+
+void rebase_all(char **cmd)
+{
+    rebase(cmd, 5, ' ');
+    rebase(cmd, 1, '|');
+    rebase(cmd, 2, ';');
+    rebase(cmd, 3, '>');
+    rebase(cmd, 4, '<');
+    rebase(cmd, 6, '&');
+}
 
 void rebase(char **cmd, char c, char b)
 {
@@ -56,6 +66,16 @@ int balance_checker(char **str, int balance, int *i)
         balance = (balance > 0) ? 0 : 2;
     if (((*str)[(*i)] == ' ') && (balance == 1 || balance == 2))
         (*str)[(*i)] = 5;
+    if (((*str)[(*i)] == '|') && (balance == 1 || balance == 2))
+        (*str)[(*i)] = 1;
+    if (((*str)[(*i)] == ';') && (balance == 1 || balance == 2))
+        (*str)[(*i)] = 2;
+    if (((*str)[(*i)] == '>') && (balance == 1 || balance == 2))
+        (*str)[(*i)] = 3;
+    if (((*str)[(*i)] == '<') && (balance == 1 || balance == 2))
+        (*str)[(*i)] = 4;
+    if (((*str)[(*i)] == '&') && (balance == 1 || balance == 2))
+        (*str)[(*i)] = 6;
     return (balance);
 }
 
@@ -97,9 +117,9 @@ void open_cots(char **str, int balance)
         {
             ptr = (*str);
             (*str) = ft_strjoin((*str), buff);
-            free(ptr);
+            ft_strdel(&ptr);
         }
-        ft_strclr(buff);
+        ft_strdel(&buff);
     }
     ft_strdel(&buff);
 }

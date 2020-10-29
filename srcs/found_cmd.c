@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:28:50 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/24 05:17:41 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/29 05:41:45 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void delkill(char **paths)
     i = 0;
     if (paths)
     {
-        while (paths[i])
-            free(paths[i++]);
-       free(paths);
+        if (paths[i])
+        {
+            while (paths[i])
+                ft_strdel(&paths[i++]);
+             ft_strdel(&(*paths));
+        }
     }
 }
 
@@ -78,15 +81,15 @@ char **found_func(t_env *lst, char *cmd, char **str)
     {
         tmp = paths[i];
         paths[i] = ft_strjoin(paths[i], "/");
-        free(tmp);
+        ft_strdel(&tmp);
         tmp = paths[i];
         paths[i] = ft_strjoin(paths[i], cmd);
-        free(tmp);
+        ft_strdel(&tmp);
         if (access(paths[i], F_OK) == 0)
             break;
     }
     error_cmd(str[0], paths[i]);
-    free(str[0]);
+    ft_strdel(&str[0]);
     str[0] = ft_strdup(paths[i]);
     delkill(paths);
     return (str);

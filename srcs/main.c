@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:25:56 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/28 05:27:47 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/29 05:46:55 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void print(t_cmd *cmd)
     {
         while (cmd->red)
         {
-            // puts("***LFD*****\n");
-            // ft_putnbr(cmd->red->lfd);
-            //  puts("\n***********\n");
+             puts("***LFD*****\n");
+             ft_putnbr(cmd->red->lfd);
+              puts("\n***********\n");
             puts("***FILE*****\n");
             ft_putendl(cmd->red->file);
             puts("***********\n");
-            // puts("***RFD*****\n");
-            // ft_putnbr(cmd->red->rfd);
-            //  puts("\n***********\n");
+             puts("***RFD*****\n");
+             ft_putnbr(cmd->red->rfd);
+              puts("\n***********\n");
             puts("***TYPE*****\n");
             ft_putnbr(cmd->red->type);
             puts("\n***********\n");
@@ -49,7 +49,7 @@ void free_red(t_red **red)
     while ((*red))
     {
         if ((*red)->file)
-            free((*red)->file);
+           ft_strdel(&(*red)->file);
         (*red)->lfd = 0;
         (*red)->rfd = 0;
         (*red)->type = 0;
@@ -62,7 +62,7 @@ void free_red(t_red **red)
 
 void free_cmd_list(t_cmd **cmd_line)
 {
-    free((*cmd_line)->cmd);
+    ft_strdel(&(*cmd_line)->cmd);
     if ((*cmd_line)->red)
         free_red(&(*cmd_line)->red);
     if ((*cmd_line)->pipe)
@@ -94,7 +94,7 @@ void core(t_env **env)
         }
         if (!ft_strcmp(buff, "exit")) 
             break;
-        //print(cmd_line);
+       // print(cmd_line);
         execute_cmd(cmd_line, env, 0);
         del_cmd_lst(&cmd_line);
         ft_strdel(&buff);

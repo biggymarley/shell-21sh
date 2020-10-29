@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:10:24 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/28 05:26:49 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/29 05:42:11 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,14 @@ char **cmd_finder(t_env *env, char *cmd)
         ptr = ft_strtrim(cmd);
         if (ptr[0] == '\0')
         {
-            free(ptr);
+            ft_strdel(&ptr);
             return (NULL);
         }
         line = ft_strsplit(ptr, ' ');
-        rebase(line, 5, ' ');
+        rebase_all(line);
         tmp = found_func(env, line[0], line);
-        free(ptr);
+        ft_strdel(&ptr);
     }
-    delkill(line);
     return (tmp);
 }
 
@@ -81,6 +80,7 @@ int duplicate_and_execute(char **cmd, t_env **env, int cmd_nbr, t_cmd *cmd_list)
     char **nev;
     int fd[2];
 
+    nev = NULL;
     built_cmd = if_bult(cmd);
     nev = ltot((*env));
     if (pipe(fd) == -1)
@@ -104,10 +104,17 @@ int execute_cmd(t_cmd *cmd_list, t_env **env, int cmd_nbr)
     char **cmd;
     int fd;
 
+    cmd = NULL;
     if (!(cmd = cmd_finder((*env), cmd_list->cmd)) && !cmd_list->red)
+    {
+        delkill(cmd);
         return (0);
+    }
     if (cmd && !cmd[0] && !cmd_list->red)
+    {
+        delkill(cmd);
         return (0);
+    }
     duplicate_and_execute(cmd, env, cmd_nbr, cmd_list);
     delkill(cmd);
     if (cmd_list->pipe)

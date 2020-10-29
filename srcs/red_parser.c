@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 05:01:11 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/24 05:28:31 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/29 05:47:05 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,11 @@ int fill_red_type(t_red **red_list, char *line, int i)
 
 void red_fdclose_add(t_cmd **line, unsigned int *type, int index)
 {
-    if ((*line)->cmd[index + 1] && ((*line)->cmd[index + 1] == ' ' || !(*line)->cmd[index + 1]))
-    {
+    // if ((*line)->cmd[index + 1] && ((*line)->cmd[index + 1] == ' ' || !(*line)->cmd[index + 1]))
+    // {
         (*type) = (*type) | CLOSE_RFD;
         ft_move_replace(&(*line)->cmd[index]);
-    }
+    // }
 }
 
 int right_fd_filler(t_red **red_list, t_cmd **line, int i)
@@ -135,9 +135,8 @@ int right_fd_filler(t_red **red_list, t_cmd **line, int i)
             return(-1);
         red_fdclose_add(line, &(*red_list)->type, index);
     }
-    if (index == i + 2 || (*red_list)->type & HERDOC)
+    if (index == i + 2 || (*red_list)->type & (HERDOC))
     {
-        
         (*red_list)->rfd = 0;
         return (0);
     }
@@ -212,7 +211,10 @@ void left_fd_filler(int *i, t_cmd **line, t_red **red_list)
         index--;
     if (index && (index == ((*i) - 1) || (*red_list)->type & RED_STDOUT_ERR))
     {
-        (*red_list)->lfd = 0;
+        if((*red_list)->type & (RED_TRUNC | RED_APPND | SWAP_LFD_TRFD))
+            (*red_list)->lfd = 1;
+        else
+            (*red_list)->lfd = 0;
         red_cleaner(red_list, i, line);
         return;
     }
@@ -245,6 +247,7 @@ int fd_file_filler(t_red **red_list, t_cmd **line, int *i)
     if ((*red_list)->type & (SWAP_LFD_TRFD | READ_FCUSFD | HERDOC))
         if(right_fd_filler(red_list, line, (*i)) < 0)
             return (0);
+    if(!((*red_list)->type & (SWAP_LFD_TRFD | READ_FCUSFD)))
     strdup_to_redlist_and_clean(red_list, line, &index, i);
     left_fd_filler(i, line, red_list);
     if (!((*red_list)->type & (SWAP_LFD_TRFD | READ_FCUSFD)) && !(*red_list)->file && !(*red_list)->file[0])
