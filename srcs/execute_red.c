@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 01:51:26 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/29 05:54:15 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/30 04:17:43 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int red_duper(t_red *red)
 {
     int fd_handler;
     int fd[2];
+    int n;
 
     if (pipe(fd) == -1)
         return (0);
@@ -81,15 +82,16 @@ int red_duper(t_red *red)
                     close(red->rfd);
             }
         }
-        else if(red->type & READ_FCUSFD)
+        else if (red->type & READ_FCUSFD)
         {
-            ft_putnbr(red->rfd);
-            if((dup2(red->rfd, 0)) == -1)
+            if ((n = dup2(red->rfd, 0)) == -1 || red->rfd == fd[0] || red->rfd == fd[1])
             {
-                puts("here");
                 ft_putendl_fd("bad file descriptor", 2);
+                close(fd[1]);
+                close(fd[0]);
                 return(0);
             }
+            ft_putnbr(n);
         }
         fd_handler = 0;
         red = red->next;

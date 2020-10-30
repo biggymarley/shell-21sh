@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:10:24 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/29 05:42:11 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/30 04:38:03 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char **cmd_finder(t_env *env, char *cmd)
     return (tmp);
 }
 
-void fdhandler(int cmd_nbr, int fd_handler, int *fd, t_cmd *cmd_list)
+int fdhandler(int cmd_nbr, int fd_handler, int *fd, t_cmd *cmd_list)
 {
     if (cmd_nbr != 0)
         dup2(fd_handler, 0);
@@ -68,9 +68,11 @@ void fdhandler(int cmd_nbr, int fd_handler, int *fd, t_cmd *cmd_list)
         dup2(fd[1], 1);
     close(fd[0]);
     close(fd[1]);
+    close(fd_handler);
     if (cmd_list->red)
         if (!red_duper(cmd_list->red))
-            return;
+            return(0);
+    return(1);
 }
 
 int duplicate_and_execute(char **cmd, t_env **env, int cmd_nbr, t_cmd *cmd_list)
@@ -81,13 +83,19 @@ int duplicate_and_execute(char **cmd, t_env **env, int cmd_nbr, t_cmd *cmd_list)
     int fd[2];
 
     nev = NULL;
+    if(!cmd && !cmd_list && !cmd_nbr && !env)
+    {
+        close(fd_handler);
+        return(1);
+    }
     built_cmd = if_bult(cmd);
     nev = ltot((*env));
     if (pipe(fd) == -1)
         return (0);
     else if (!fork())
     {
-        fdhandler(cmd_nbr, fd_handler, fd, cmd_list);
+        if(!(fdhandler(cmd_nbr, fd_handler, fd, cmd_list)))
+            exit(EXIT_FAILURE);
         execve(cmd[0], cmd, nev);
         exit(1);
     }
@@ -120,9 +128,12 @@ int execute_cmd(t_cmd *cmd_list, t_env **env, int cmd_nbr)
     if (cmd_list->pipe)
         execute_cmd(cmd_list->pipe, env, cmd_nbr + 1);
     else
+    {
+        duplicate_and_execute(NULL, 0, 0, 0);
         while (wait(NULL) > 0)
         {
         }
+    }
     if (cmd_list->sep)
         execute_cmd(cmd_list->sep, env, 0);
     return (1);

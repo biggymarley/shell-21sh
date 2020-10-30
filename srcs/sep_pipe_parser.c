@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 04:43:33 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/29 05:40:32 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/10/30 05:00:41 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_cmd *parser(char **cmd_line)
     ptr = (*cmd_line);
     (*cmd_line) = ft_strtrim((*cmd_line));
     free(ptr);
-    if ((ft_strlen((*cmd_line))) == 0)
+    if (!(*cmd_line) || !ft_strlen((*cmd_line))) // ctrl d and \n
         return (NULL);
     cots_check(cmd_line, 0);
     while ((*cmd_line)[i])
