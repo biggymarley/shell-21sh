@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/01 04:48:09 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/01 04:55:07 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,22 @@
 
 #include "../libft/libft.h"
 
-typedef struct	s_env
+typedef struct	    s_env
 {
-	char        *name;
-	char        *value;
-	struct s_env *next;
-}               t_env;
+	char            *name;
+	char            *value;
+	struct s_env    *next;
+}                   t_env;
 
-typedef struct  s_env_vars
+typedef struct      s_env_vars
 {
-	t_env       *new;
-	char        name[2000];
-	char        value[5000];
-	int         i;
-	int         j;
-	int         c;
-}				t_env_vars;
+	t_env           *new;
+	char            name[2000];
+	char            value[5000];
+	int             i;
+	int             j;
+	int             c;
+}				    t_env_vars;
 
 typedef struct      s_red
 {
@@ -80,8 +80,8 @@ t_cmd               *parser(char **cmd_line);
 int                 red_parser(t_cmd **cmd_list);
 int                 red_checker(char *line, int i, char red1, char red2);
 int                 red_errors_checker(char *line, int i);
-void		           free_env(t_env **alst, void (*del)(void *, void *));
-int                execute_cmd(t_cmd *cmd_list, t_env **env, int cmd_nbr);
+void		        free_env(t_env **alst, void (*del)(void *, void *));
+int                 execute_cmd(t_cmd *cmd_list, t_env **env, int cmd_nbr);
 char                **found_func(t_env *lst, char *cmd, char **str);
 t_env               *search_env(t_env *env, char *name);
 char                **ltot(t_env *env);
@@ -90,7 +90,7 @@ int                 red_duper(t_red *red);
 void                del(void *s, void *str);
 void                del_cmd_lst(t_cmd **cmd);
 void                read_herdoc(t_red *red);
-int                cots_check(char **cmd_line, int balance);
+int                 cots_check(char **cmd_line, int balance);
 void                rebase(char **cmd, char c, char b);
 void                rebase_all(char **cmd);
 int         		ft_echo(char **str);
