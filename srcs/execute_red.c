@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 01:51:26 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/30 04:17:43 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/01 01:32:13 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int exec_red(t_red *red, int *f)
         if (((*f) = open(red->file, O_RDONLY)) < 0)
         {
             ft_putstr_fd(red->file, 2);
-            ft_putendl_fd(": No such file or directory", 2);
+            ft_putendl_fd("\a: No such file or directory", 2);
             return (0);
         }
     }
@@ -86,7 +86,7 @@ int red_duper(t_red *red)
         {
             if ((n = dup2(red->rfd, 0)) == -1 || red->rfd == fd[0] || red->rfd == fd[1])
             {
-                ft_putendl_fd("bad file descriptor", 2);
+                ft_putendl_fd("\abad file descriptor", 2);
                 close(fd[1]);
                 close(fd[0]);
                 return(0);

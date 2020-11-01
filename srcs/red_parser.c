@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 05:01:11 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/29 05:47:05 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/01 01:32:10 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int fill_red_type(t_red **red_list, char *line, int i)
         (*red_list)->type = RED_TRUNC;
     else
     {
-        ft_putendl_fd("21sh: parse error", 2);
+        ft_putendl_fd("\a21sh: parse error", 2);
         return (0);
     }
     return (1);
@@ -276,7 +276,7 @@ int red_parser(t_cmd **cmd_list)
             }
             if (!(red_errors_checker((*cmd_list)->cmd, i)))
             {
-                ft_putendl_fd("21sh: parse error", 2);
+                ft_putendl_fd("\a21sh: parse error", 2);
                 return (0);
             }
             (*adr_list) = (t_red *)ft_memalloc(sizeof(t_red));
@@ -284,7 +284,7 @@ int red_parser(t_cmd **cmd_list)
                 return (0);
             if (!(fd_file_filler(&(*adr_list), cmd_list, &i)))
             {
-                ft_putendl_fd("syntax error near unexpected token", 2);
+                ft_putendl_fd("\asyntax error near unexpected token", 2);
                 return (0);
             }
             continue;

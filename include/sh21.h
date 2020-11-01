@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/29 00:18:35 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/01 04:48:09 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,16 @@ typedef struct      s_cmd
     t_red           *red;
 }                   t_cmd;
 
+typedef	struct		s_cd
+{
+	char			*nwpwd;
+	char			*value;
+	char			*newstr;
+	char			*tmp;
+	char			**newenvadded;
+	t_env			*ptr;
+}					t_cd;
+
 void                printer();
 void                env_to_list(t_env **lst, char **env);
 void                free_list(t_cmd **cmd_list);
@@ -83,4 +93,16 @@ void                read_herdoc(t_red *red);
 int                cots_check(char **cmd_line, int balance);
 void                rebase(char **cmd, char c, char b);
 void                rebase_all(char **cmd);
+int         		ft_echo(char **str);
+int     			ft_setenv(t_env **env, char **str);
+char        		**ft_cd(char **str, t_env **env);
+void        		ft_env(t_env *env);
+void                execve_built(char *cmd, char **line, t_env **env, int cmdnbr);
+t_env           	*env_create(char *name, char *value);
+t_env               *env_lst_adder(t_env **old, t_env *new);
+void                execve_builts_in_child(char *cmd, char **line, t_env **env, int cmdnbr);
+int                 if_bult(char **str);
+void        		delete_env_var(t_env **env, char **str);
+void        		ft_one_envdel(t_env **alst, void (*del)(void *, void *));
+int	            	counter(char **str);
 #endif

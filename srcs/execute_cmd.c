@@ -6,37 +6,11 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:10:24 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/30 04:38:03 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/01 04:35:02 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/sh21.h"
-
-int if_bult(char **str)
-{
-    if (str)
-    {
-        if (ft_strcmp(str[0], "exit") == 0 ||
-            ft_strcmp(str[0], "EXIT") == 0)
-            return (1);
-        else if (ft_strcmp(str[0], "setenv") == 0 ||
-                 ft_strcmp(str[0], "SETENV") == 0)
-            return (2);
-        else if (ft_strcmp(str[0], "unsetenv") == 0 ||
-                 ft_strcmp(str[0], "UNSETENV") == 0)
-            return (6);
-        else if (ft_strcmp(str[0], "env") == 0 ||
-                 ft_strcmp(str[0], "ENV") == 0)
-            return (3);
-        else if (ft_strcmp(str[0], "cd") == 0 ||
-                 ft_strcmp(str[0], "CD") == 0)
-            return (4);
-        else if (ft_strcmp(str[0], "echo") == 0 ||
-                 ft_strcmp(str[0], "ECHO") == 0)
-            return (5);
-    }
-    return (0);
-}
 
 char **cmd_finder(t_env *env, char *cmd)
 {
@@ -54,7 +28,10 @@ char **cmd_finder(t_env *env, char *cmd)
         }
         line = ft_strsplit(ptr, ' ');
         rebase_all(line);
-        tmp = found_func(env, line[0], line);
+        if(!if_bult(line))
+            tmp = found_func(env, line[0], line);
+        else
+            tmp = line;
         ft_strdel(&ptr);
     }
     return (tmp);
@@ -71,8 +48,8 @@ int fdhandler(int cmd_nbr, int fd_handler, int *fd, t_cmd *cmd_list)
     close(fd_handler);
     if (cmd_list->red)
         if (!red_duper(cmd_list->red))
-            return(0);
-    return(1);
+            return (0);
+    return (1);
 }
 
 int duplicate_and_execute(char **cmd, t_env **env, int cmd_nbr, t_cmd *cmd_list)
@@ -83,20 +60,24 @@ int duplicate_and_execute(char **cmd, t_env **env, int cmd_nbr, t_cmd *cmd_list)
     int fd[2];
 
     nev = NULL;
-    if(!cmd && !cmd_list && !cmd_nbr && !env)
+    if (!cmd && !cmd_list && !cmd_nbr && !env)
     {
         close(fd_handler);
-        return(1);
+        return (1);
     }
-    built_cmd = if_bult(cmd);
+    if ((built_cmd = if_bult(cmd)))
+        execve_built(cmd[0], cmd, env, built_cmd);
     nev = ltot((*env));
     if (pipe(fd) == -1)
         return (0);
     else if (!fork())
     {
-        if(!(fdhandler(cmd_nbr, fd_handler, fd, cmd_list)))
+        if (!(fdhandler(cmd_nbr, fd_handler, fd, cmd_list)))
             exit(EXIT_FAILURE);
-        execve(cmd[0], cmd, nev);
+        if (!built_cmd)
+            execve(cmd[0], cmd, nev);
+        else if (built_cmd)
+            execve_builts_in_child(cmd[0], cmd, env, built_cmd);
         exit(1);
     }
     close(fd[1]);

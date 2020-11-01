@@ -6,7 +6,7 @@
 #    By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/27 02:25:57 by afaragi           #+#    #+#              #
-#    Updated: 2020/10/28 05:18:42 by afaragi          ###   ########.fr        #
+#    Updated: 2020/11/01 04:41:20 by afaragi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,12 @@ SRC_NAME =	main.c \
 			execute_red.c \
 			herdoc_reader.c \
 			cots_handler.c \
+			builts.c \
+			ft_cd.c \
+			ft_echo.c \
+			ft_env.c \
+			ft_setenv.c \
+			unsetenv.c \
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))

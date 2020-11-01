@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:25:56 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/30 05:01:29 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/01 04:50:43 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void core(t_env **env)
             //ft_strdel(&str);
             continue;
         }
-        if (!ft_strcmp(buff, "exit")) 
+        if (!ft_strcmp(cmd_line->cmd, "exit")) 
             break;
        // print(cmd_line);
         execute_cmd(cmd_line, env, 0);

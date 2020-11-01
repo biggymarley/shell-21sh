@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:28:50 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/29 05:41:45 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/01 01:32:16 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void error_cmd(char *cmd, char *str)
 {
     if (!str)
     {
-        ft_putstr_fd("SHELL: command not found: ", 2);
+        ft_putstr_fd("\aSHELL: command not found: ", 2);
         ft_putendl_fd(cmd, 2);
     }
 }
