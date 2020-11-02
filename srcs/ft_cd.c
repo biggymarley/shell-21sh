@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 03:42:21 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/01 04:00:35 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/02 23:36:27 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void		if_no_env(t_cd *cd, t_env **env, char *name, char *spli)
 	}
 }
 
-char		**ft_cd(char **str, t_env **env)
+void		ft_cd(char **str, t_env **env)
 {
 	t_cd	cd;
 
@@ -90,12 +90,12 @@ char		**ft_cd(char **str, t_env **env)
 		else
 			cd.nwpwd = ft_strdup(str[1]);
 		if (if_no_directory(&cd, str[1]) == 1)
-			return (ltot(*env));
+			return;
 		if_no_env(&cd, env, "OLDPWD", "NOTHING@OLDPWD@");
 		chdir(cd.nwpwd);
 		if_no_env(&cd, env, "PWD", "NOTHING@PWD@");
 		free(cd.nwpwd);
-		return (ltot(*env));
+		return;
 	}
-	return (ltot(*env));
+	return ;
 }

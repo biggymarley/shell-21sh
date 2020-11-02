@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/01 04:55:07 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/02 23:32:01 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void                rebase(char **cmd, char c, char b);
 void                rebase_all(char **cmd);
 int         		ft_echo(char **str);
 int     			ft_setenv(t_env **env, char **str);
-char        		**ft_cd(char **str, t_env **env);
+void        		ft_cd(char **str, t_env **env);
 void        		ft_env(t_env *env);
 void                execve_built(char *cmd, char **line, t_env **env, int cmdnbr);
 t_env           	*env_create(char *name, char *value);

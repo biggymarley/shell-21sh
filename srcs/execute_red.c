@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 01:51:26 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/01 01:32:13 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/03 00:32:34 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,19 @@ int red_duper(t_red *red)
 {
     int fd_handler;
     int fd[2];
-    int n;
 
+    fd_handler = 0;
     if (pipe(fd) == -1)
         return (0);
     while (red)
     {
         if (!exec_red(red, &fd_handler))
+        {
+            close(fd[1]);
+            close(fd[0]);
+            close(fd_handler);
             return (0);
+        }
         if (red->type & READ_F_F)
             fd_handler_red(red, fd_handler, 0, 0);
         else if (red->type & (RED_TRUNC | RED_APPND))
@@ -84,19 +89,19 @@ int red_duper(t_red *red)
         }
         else if (red->type & READ_FCUSFD)
         {
-            if ((n = dup2(red->rfd, 0)) == -1 || red->rfd == fd[0] || red->rfd == fd[1])
+            if ((dup2(red->rfd, 0)) == -1 || red->rfd == fd[0] || red->rfd == fd[1])
             {
                 ft_putendl_fd("\abad file descriptor", 2);
                 close(fd[1]);
                 close(fd[0]);
-                return(0);
+                return (0);
             }
-            ft_putnbr(n);
         }
         fd_handler = 0;
         red = red->next;
     }
     close(fd[1]);
-    close(fd[0]);
+    if (fd[0])
+        close(fd[0]);
     return (1);
 }
