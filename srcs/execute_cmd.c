@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:10:24 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/04 02:41:35 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/04 05:05:46 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int execute_cmd(t_cmd *cmd_list, t_env **env, int cmd_nbr)
     int fd;
 
     cmd = NULL;
-    alias_checker(&cmd_list->cmd);
     if (!(cmd = cmd_finder((*env), cmd_list->cmd)) && !cmd_list->red)
     {
         delkill(cmd);

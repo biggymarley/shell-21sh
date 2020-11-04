@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:25:56 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/04 03:00:51 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/04 05:10:40 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void print(t_cmd *cmd)
     {
         while (cmd->red)
         {
-             puts("***LFD*****\n");
-             ft_putnbr(cmd->red->lfd);
-              puts("\n***********\n");
+            puts("***LFD*****\n");
+            ft_putnbr(cmd->red->lfd);
+            puts("\n***********\n");
             puts("***FILE*****\n");
             ft_putendl(cmd->red->file);
             puts("***********\n");
-             puts("***RFD*****\n");
-             ft_putnbr(cmd->red->rfd);
-              puts("\n***********\n");
+            puts("***RFD*****\n");
+            ft_putnbr(cmd->red->rfd);
+            puts("\n***********\n");
             puts("***TYPE*****\n");
             ft_putnbr(cmd->red->type);
             puts("\n***********\n");
@@ -49,7 +49,7 @@ void free_red(t_red **red)
     while ((*red))
     {
         if ((*red)->file)
-           ft_strdel(&(*red)->file);
+            ft_strdel(&(*red)->file);
         (*red)->lfd = 0;
         (*red)->rfd = 0;
         (*red)->type = 0;
@@ -74,7 +74,16 @@ void free_cmd_list(t_cmd **cmd_line)
 
 void func(int signal)
 {
-   ft_putstr("\n\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
+    ft_putstr("\n\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
+}
+
+void alias(t_cmd *cmd)
+{
+    alias_checker(&cmd->cmd);
+    if (cmd->pipe)
+        alias(cmd->pipe);
+    if (cmd->sep)
+        alias(cmd->sep);
 }
 
 void core(t_env **env)
@@ -86,13 +95,13 @@ void core(t_env **env)
 
     buff = NULL;
     str = NULL;
-    
+
     while (1)
     {
-        signal(SIGINT, func);
         ft_putstr("\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
+        signal(SIGINT, func);
         get_next_line(0, &buff);
-        if(buff && buff[0] && buff[0] == '\n')
+        if (buff && buff[0] && buff[0] == '\n')
         {
             ft_strdel(&buff);
             continue;
@@ -104,7 +113,8 @@ void core(t_env **env)
             //ft_strdel(&str);
             continue;
         }
-        if (!ft_strcmp(cmd_line->cmd, "exit")) 
+        alias(cmd_line);
+        if (!ft_strcmp(cmd_line->cmd, "exit"))
             break;
         //print(cmd_line);
         execute_cmd(cmd_line, env, 0);
