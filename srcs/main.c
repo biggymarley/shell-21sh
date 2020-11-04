@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:25:56 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/03 00:27:32 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/04 03:00:51 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void free_cmd_list(t_cmd **cmd_line)
     ft_memdel((void **)cmd_line);
 }
 
+void func(int signal)
+{
+   ft_putstr("\n\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
+}
+
 void core(t_env **env)
 {
     char *buff;
@@ -81,11 +86,13 @@ void core(t_env **env)
 
     buff = NULL;
     str = NULL;
+    
     while (1)
     {
+        signal(SIGINT, func);
         ft_putstr("\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
         get_next_line(0, &buff);
-        if(buff && buff[0] && buff[0] == '\n' )
+        if(buff && buff[0] && buff[0] == '\n')
         {
             ft_strdel(&buff);
             continue;

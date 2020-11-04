@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/02 23:32:01 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/04 02:18:42 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,6 @@ int                 if_bult(char **str);
 void        		delete_env_var(t_env **env, char **str);
 void        		ft_one_envdel(t_env **alst, void (*del)(void *, void *));
 int	            	counter(char **str);
+void				alias_parser(char **line);
+void				alias_checker(char **line);
 #endif

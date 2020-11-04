@@ -6,7 +6,7 @@
 #    By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/27 02:25:57 by afaragi           #+#    #+#              #
-#    Updated: 2020/11/01 04:41:20 by afaragi          ###   ########.fr        #
+#    Updated: 2020/11/03 23:43:41 by afaragi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC_NAME =	main.c \
 			ft_env.c \
 			ft_setenv.c \
 			unsetenv.c \
+			alias.c \
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))
