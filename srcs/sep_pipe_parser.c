@@ -6,116 +6,93 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 04:43:33 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/30 05:00:41 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/07 03:43:49 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/sh21.h"
 
-int pipe_parser(t_cmd **cmd_list, char **cmd, int i)
+int				single_cmd_parser(t_cmd **cmd_list, char *cmd, int i, int li)
 {
-    if ((*cmd_list)->cmd == NULL)
-    {
-        errors(0, cmd_list);
-        return (0);
-    }
-    (*cmd_list)->pipe = (t_cmd *)ft_memalloc(sizeof(t_cmd));
-    (*cmd_list) = (*cmd_list)->pipe;
-    if (!(*cmd)[i + 1] && i > 0)
-        pipe_reader(cmd);
-    return (1);
+	if (!((*cmd_list)->cmd = ft_strdup_from_to(cmd, li, i)))
+	{
+		errors(0, cmd_list);
+		return (0);
+	}
+	else
+	{
+		if (!(red_parser(cmd_list)))
+			return (0);
+	}
+	return (1);
 }
 
-int sep_parser(t_cmd **cmd_list, char *cmd, int i, t_cmd **last_sep)
+int				sep_pipe_alloc(t_cmd **ct, char **cmd, int i, t_cmd **lp)
 {
-
-    if ((*cmd_list)->cmd == NULL)
-    {
-        errors(0, cmd_list);
-        return (0);
-    }
-    if ((*last_sep) != NULL)
-        (*cmd_list) = (*last_sep);
-    (*cmd_list)->sep = (t_cmd *)ft_memalloc(sizeof(t_cmd));
-    (*last_sep) = (*cmd_list)->sep;
-    (*cmd_list) = (*cmd_list)->sep;
-    return (1);
+	if ((*cmd)[i] == '|')
+	{
+		if (!(pipe_parser(ct, cmd, i)))
+			return (0);
+	}
+	else if ((*cmd)[i] == ';')
+		if (!(sep_parser(ct, (*cmd), i, lp)))
+			return (0);
+	return (1);
 }
 
-int single_cmd_parser(t_cmd **cmd_list, char *cmd, int i, int last_index)
+int				check_init(char **cmd_line, t_parser *parser)
 {
-    if (!((*cmd_list)->cmd = ft_strdup_from_to(cmd, last_index, i)))
-    {
-        errors(0, cmd_list);
-        return (0);
-    }
-    else
-    {
-        if (!(red_parser(cmd_list)))
-            return (0);
-    }
-    return (1);
+	(*parser).i = 0;
+	(*parser).li = 0;
+	(*parser).last_sep = NULL;
+	(*parser).cmd_list = (t_cmd *)ft_memalloc(sizeof(t_cmd));
+	(*parser).head = (*parser).cmd_list;
+	(*parser).ptr = (*cmd_line);
+	(*cmd_line) = ft_strtrim((*cmd_line));
+	free((*parser).ptr);
+	if (!(*cmd_line) || !ft_strlen((*cmd_line)))
+		return (0);
+	cots_check(cmd_line, 0);
+	return (1);
 }
 
-int sep_pipe_alloc(t_cmd **cmd_list, char **cmd, int i, t_cmd **last_sep)
+int				core_parser(char **cmd_line, t_parser *p)
 {
-
-    if ((*cmd)[i] == '|')
-    {
-        if (!(pipe_parser(cmd_list, cmd, i)))
-            return (0);
-    }
-    else if ((*cmd)[i] == ';')
-        if (!(sep_parser(cmd_list, (*cmd), i, last_sep)))
-            return (0);
-    return (1);
+	if (!((*p).cmd_list->cmd = ft_strdup_from_to((*cmd_line), (*p).li, (*p).i)))
+	{
+		errors(0, &(*p).cmd_list);
+		return (0);
+	}
+	if (!(red_parser(&(*p).cmd_list)))
+		return (0);
+	if (!(sep_pipe_alloc(&(*p).cmd_list, &(*cmd_line), (*p).i, &(*p).last_sep)))
+	{
+		errors(0, &(*p).cmd_list);
+		return (0);
+	}
+	(*p).i++;
+	(*p).li = (*p).i;
+	return (1);
 }
 
-
-t_cmd *parser(char **cmd_line)
+t_cmd			*parser(char **cmd_line)
 {
-    int i;
-    int last_index;
-    t_cmd *cmd_list;
-    t_cmd *head;
-    t_cmd *last_sep;
-    char *ptr;
+	t_parser	p;
 
-    i = 0;
-    last_index = 0;
-    last_sep = NULL;
-    cmd_list = (t_cmd *)ft_memalloc(sizeof(t_cmd));
-    head = cmd_list;
-    ptr = (*cmd_line);
-    (*cmd_line) = ft_strtrim((*cmd_line));
-    free(ptr);
-    if (!(*cmd_line) || !ft_strlen((*cmd_line))) // ctrl d and \n
-        return (NULL);
-    cots_check(cmd_line, 0);
-    while ((*cmd_line)[i])
-    {
-        if ((*cmd_line)[i] == '|' || (*cmd_line)[i] == ';')
-        {
-            if (!(cmd_list->cmd = ft_strdup_from_to((*cmd_line), last_index, i)))
-            {
-                errors(0, &cmd_list);
-                return (NULL);
-            }
-            if (!(red_parser(&cmd_list)))
-                return (NULL);
-            if (!(sep_pipe_alloc(&cmd_list, &(*cmd_line), i, &last_sep)))
-            {
-                errors(0, &cmd_list);
-                return (NULL);
-            }
-            i++;
-            last_index = i;
-            continue;
-        }
-        i++;
-        if (!(*cmd_line)[i])
-            if (!(single_cmd_parser(&cmd_list, (*cmd_line), i, last_index)))
-                return (NULL);
-    }
-    return (head);
+	if (!(check_init(cmd_line, &p)))
+		return (NULL);
+	while ((*cmd_line)[p.i])
+	{
+		if ((*cmd_line)[p.i] == '|' || (*cmd_line)[p.i] == ';')
+		{
+			if (!(core_parser(cmd_line, &p)))
+				return (NULL);
+			continue;
+		}
+		p.i++;
+		if (!(*cmd_line)[p.i])
+			if (!(single_cmd_parser(&p.cmd_list, (*cmd_line), p.i, p.li)))
+				return (NULL);
+	}
+	return (p.head);
 }

@@ -6,27 +6,27 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:13:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/02 23:16:34 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/08 02:53:31 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <string.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <time.h>
-#include <grp.h>
-#include <fcntl.h>
-#include <pwd.h>
-#include <signal.h>
+# include <unistd.h>
+# include <sys/wait.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <dirent.h>
+# include <string.h>
+# include <stdio.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <time.h>
+# include <grp.h>
+# include <fcntl.h>
+# include <pwd.h>
+# include <signal.h>
 # include "../include/sh21.h"
 
 # define BUFF_SIZE 1
@@ -110,11 +110,12 @@ void				ft_deletlist(t_list **alst,
 						void (*del)(void *, size_t, void *));
 void				ft_deletone(t_list **alst,
 						void (*del)(void *, size_t, void *));
-char			**ft_strwhitesplit(char const *s);
-void			ft_whiteremplire(char *r, char const *s);
+char				**ft_strwhitesplit(char const *s);
+void				ft_whiteremplire(char *r, char const *s);
 int					ft_whitec(char const *s);
 int					get_next_line(const int fd, char **line);
 char				*ft_strdup_from_to(const char *s, int start, int end);
 void				ft_move_replace(char *str);
 void				delkill(char **paths);
+void				ft_putalnum_fd(char const *str, int fd);
 #endif

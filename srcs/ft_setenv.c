@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 03:43:47 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/01 04:04:54 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/07 02:06:59 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int			if_alpha_num(char *name)
 	return (1);
 }
 
-int		counter(char **str)
+int			counter(char **str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (str[i])

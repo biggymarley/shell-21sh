@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 03:48:10 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/01 04:00:33 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/07 02:06:30 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void		ft_env(t_env *env)
 
 	i = 0;
 	nev = ltot(env);
-    if(nev)
-	    while (nev[i])
-		ft_putendl(nev[i++]);
+	if (nev)
+		while (nev[i])
+			ft_putendl(nev[i++]);
 	delkill(nev);
 }

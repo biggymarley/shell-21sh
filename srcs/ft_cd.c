@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 03:42:21 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/02 23:36:27 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/07 02:05:38 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ void		ft_cd(char **str, t_env **env)
 		else
 			cd.nwpwd = ft_strdup(str[1]);
 		if (if_no_directory(&cd, str[1]) == 1)
-			return;
+			return ;
 		if_no_env(&cd, env, "OLDPWD", "NOTHING@OLDPWD@");
 		chdir(cd.nwpwd);
 		if_no_env(&cd, env, "PWD", "NOTHING@PWD@");
 		free(cd.nwpwd);
-		return;
+		return ;
 	}
 	return ;
 }

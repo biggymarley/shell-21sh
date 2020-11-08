@@ -6,21 +6,21 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:30:41 by afaragi           #+#    #+#             */
-/*   Updated: 2020/10/22 23:30:59 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/07 22:26:37 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void delkill(char **paths)
+void		delkill(char **paths)
 {
-    int i;
+	int		i;
 
-    i = 0;
-    if (paths)
-    {
-        while (paths[i])
-            free(paths[i++]);
-        free(paths);
-    }
+	i = 0;
+	if (paths)
+	{
+		while (paths[i])
+			free(paths[i++]);
+		free(paths);
+	}
 }

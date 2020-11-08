@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cremplire.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 20:28:53 by afaragi           #+#    #+#             */
-/*   Updated: 2019/04/23 20:34:13 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/07 22:25:45 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_cremplire(char *r, char const *s, char c)
+void		ft_cremplire(char *r, char const *s, char c)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -27,10 +27,11 @@ void	ft_cremplire(char *r, char const *s, char c)
 	}
 	r[j] = '\0';
 }
-void	ft_whiteremplire(char *r, char const *s)
+
+void		ft_whiteremplire(char *r, char const *s)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;

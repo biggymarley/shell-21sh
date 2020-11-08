@@ -1,43 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_env.c                                         :+:      :+:    :+:   */
+/*   alias_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/22 05:08:15 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/07 02:05:17 by afaragi          ###   ########.fr       */
+/*   Created: 2020/11/07 00:39:20 by afaragi           #+#    #+#             */
+/*   Updated: 2020/11/07 00:40:47 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/sh21.h"
 
-void		del(void *s, void *str)
+void			alias_parser(char **line)
 {
-	free(s);
-	free(str);
-}
+	t_alias3 alias;
 
-void		ft_one_envdel(t_env **alst, void (*del)(void *, void *))
-{
-	if (alst)
+	alias.i = 1;
+	alias.file = NULL;
+	if (counter(line) > 2)
 	{
-		del((*alst)->name, (*alst)->value);
-		ft_memdel((void**)alst);
+		ft_putendl_fd("alias : too many arguments", 2);
+		return ;
 	}
-}
-
-void		free_env(t_env **alst, void (*del)(void *, void *))
-{
-	t_env	*li;
-
-	if (alst)
+	if (!line[alias.i])
+		write_file(&alias, line);
+	else
 	{
-		while (*alst)
-		{
-			li = (*alst)->next;
-			ft_one_envdel(&(*alst), del);
-			*alst = li;
-		}
+		alias.f = open(".biggyrc", O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if ((alias_check(&line[alias.i])) > 0)
+			ft_putendl_fd(line[alias.i], alias.f);
 	}
+	if (alias.f != 0)
+		close(alias.f);
 }

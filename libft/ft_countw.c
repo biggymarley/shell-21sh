@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_countw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 20:25:30 by afaragi           #+#    #+#             */
-/*   Updated: 2019/04/23 20:27:13 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/07 23:03:16 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_whiteco(char const *s)
+int			ft_whiteco(char const *s)
 {
-	int i;
-	int rizilta;
+	int		i;
+	int		rizilta;
 
 	i = 0;
-
 	rizilta = 0;
 	while (s[i])
 	{
@@ -30,10 +29,11 @@ int		ft_whiteco(char const *s)
 	}
 	return (rizilta);
 }
-int		ft_countw(char const *s, char c)
+
+int			ft_countw(char const *s, char c)
 {
-	int i;
-	int rizilta;
+	int		i;
+	int		rizilta;
 
 	i = 0;
 	rizilta = 0;

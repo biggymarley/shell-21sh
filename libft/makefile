@@ -6,7 +6,7 @@
 #    By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 20:51:03 by afaragi           #+#    #+#              #
-#    Updated: 2020/10/28 03:54:54 by afaragi          ###   ########.fr        #
+#    Updated: 2020/11/07 04:49:24 by afaragi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,8 @@ ft_toupper.c \
 ft_strdup_from_to.c \
 ft_move_replace.c \
 free_leaks.c \
+delkill.c \
+ft_putalnum.c \
 
 OBJ = $(SRC:.c=.o)
 

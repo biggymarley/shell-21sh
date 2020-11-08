@@ -6,134 +6,76 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:25:56 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/04 05:10:40 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/08 03:17:55 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/sh21.h"
 
-void print(t_cmd *cmd)
+void			func(int signal)
 {
-    puts("***CMD*****\n");
-    ft_putendl(cmd->cmd);
-    puts("********\n");
-    if (cmd->red)
-    {
-        while (cmd->red)
-        {
-            puts("***LFD*****\n");
-            ft_putnbr(cmd->red->lfd);
-            puts("\n***********\n");
-            puts("***FILE*****\n");
-            ft_putendl(cmd->red->file);
-            puts("***********\n");
-            puts("***RFD*****\n");
-            ft_putnbr(cmd->red->rfd);
-            puts("\n***********\n");
-            puts("***TYPE*****\n");
-            ft_putnbr(cmd->red->type);
-            puts("\n***********\n");
-            cmd->red = cmd->red->next;
-        }
-    }
-    if (cmd->pipe)
-        print(cmd->pipe);
-    if (cmd->sep)
-        print(cmd->sep);
+	ft_putstr("\n\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
 }
 
-void free_red(t_red **red)
+void			alias(t_cmd *cmd)
 {
-    t_red *ptr;
-
-    while ((*red))
-    {
-        if ((*red)->file)
-            ft_strdel(&(*red)->file);
-        (*red)->lfd = 0;
-        (*red)->rfd = 0;
-        (*red)->type = 0;
-        ptr = (*red);
-        (*red) = (*red)->next;
-        ft_memdel((void **)&ptr);
-    }
-    ft_memdel((void **)&red);
+	alias_checker(&cmd->cmd);
+	if (cmd->pipe)
+		alias(cmd->pipe);
+	if (cmd->sep)
+		alias(cmd->sep);
 }
 
-void free_cmd_list(t_cmd **cmd_line)
+int				read_parse(t_core *core)
 {
-    ft_strdel(&(*cmd_line)->cmd);
-    if ((*cmd_line)->red)
-        free_red(&(*cmd_line)->red);
-    if ((*cmd_line)->pipe)
-        free_cmd_list(&(*cmd_line)->pipe);
-    if ((*cmd_line)->sep)
-        free_cmd_list(&(*cmd_line)->sep);
-    ft_memdel((void **)cmd_line);
+	ft_putstr("\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
+	get_next_line(0, &(*core).buff);
+	if ((*core).buff && (*core).buff[0] && (*core).buff[0] == '\n')
+	{
+		ft_strdel(&(*core).buff);
+		return (0);
+	}
+	if (((*core).cmd_line = parser(&(*core).buff)) == NULL)
+	{
+		ft_strdel(&(*core).buff);
+		del_cmd_lst(&(*core).cmd_line);
+		return (0);
+	}
+	return (1);
 }
 
-void func(int signal)
+int				core(t_env **env)
 {
-    ft_putstr("\n\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
+	t_core		core;
+	int			n;
+
+	core.buff = NULL;
+	core.str = NULL;
+	signal(SIGINT, func);
+	while (1)
+	{
+		if (!(read_parse(&core)))
+			continue ;
+		alias(core.cmd_line);
+		if ((n = execute_cmd(core.cmd_line, env, 0)) != 666 && n != 555)
+			break ;
+		del_cmd_lst(&core.cmd_line);
+		ft_strdel(&core.buff);
+	}
+	del_cmd_lst(&core.cmd_line);
+	ft_strdel(&core.buff);
+	return (n);
 }
 
-void alias(t_cmd *cmd)
+int				main(int ac, char **av, char **environ)
 {
-    alias_checker(&cmd->cmd);
-    if (cmd->pipe)
-        alias(cmd->pipe);
-    if (cmd->sep)
-        alias(cmd->sep);
-}
+	t_env		*env;
+	int			n;
+	t_cmd		*cmd_line;
 
-void core(t_env **env)
-{
-    char *buff;
-    t_cmd *cmd_line;
-    t_cmd **ptr;
-    char *str;
-
-    buff = NULL;
-    str = NULL;
-
-    while (1)
-    {
-        ft_putstr("\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
-        signal(SIGINT, func);
-        get_next_line(0, &buff);
-        if (buff && buff[0] && buff[0] == '\n')
-        {
-            ft_strdel(&buff);
-            continue;
-        }
-        if ((cmd_line = parser(&buff)) == NULL)
-        {
-            ft_strdel(&buff);
-            del_cmd_lst(&cmd_line);
-            //ft_strdel(&str);
-            continue;
-        }
-        alias(cmd_line);
-        if (!ft_strcmp(cmd_line->cmd, "exit"))
-            break;
-        //print(cmd_line);
-        execute_cmd(cmd_line, env, 0);
-        del_cmd_lst(&cmd_line);
-        ft_strdel(&buff);
-    }
-    del_cmd_lst(&cmd_line);
-    ft_strdel(&buff);
-}
-
-int main(int ac, char **av, char **environ)
-{
-    t_env *env;
-    t_cmd *cmd_line;
-
-    env = NULL;
-    //printer();
-    env_to_list(&env, environ);
-    core(&env);
-    free_env(&env, del);
-    return (0);
+	env = NULL;
+	env_to_list(&env, environ);
+	n = core(&env);
+	free_env(&env, del);
+	return (n);
 }

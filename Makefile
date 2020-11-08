@@ -6,7 +6,7 @@
 #    By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/27 02:25:57 by afaragi           #+#    #+#              #
-#    Updated: 2020/11/03 23:43:41 by afaragi          ###   ########.fr        #
+#    Updated: 2020/11/08 02:47:14 by afaragi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRC_NAME =	main.c \
 			pipe_tools.c \
 			sep_pipe_parser.c \
 			red_parser.c \
-			printer.c \
 			free_env.c \
 			execute_cmd.c \
 			found_cmd.c \
@@ -39,6 +38,16 @@ SRC_NAME =	main.c \
 			ft_setenv.c \
 			unsetenv.c \
 			alias.c \
+			alias_parser.c \
+			cmd_finder.c \
+			cots.c \
+			red_tools.c \
+			red_tools2.c \
+			sep_pipe.c \
+			leaks_free.c \
+			if_home.c \
+			env_dollar_finder.c \
+			if_dollar.c \
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))

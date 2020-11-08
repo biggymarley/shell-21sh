@@ -1,43 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_env.c                                         :+:      :+:    :+:   */
+/*   ft_putalnum.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/22 05:08:15 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/07 02:05:17 by afaragi          ###   ########.fr       */
+/*   Created: 2020/11/07 04:48:50 by afaragi           #+#    #+#             */
+/*   Updated: 2020/11/07 04:49:01 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/sh21.h"
+#include "libft.h"
 
-void		del(void *s, void *str)
+void		ft_putalnum_fd(char const *str, int fd)
 {
-	free(s);
-	free(str);
-}
+	int		i;
 
-void		ft_one_envdel(t_env **alst, void (*del)(void *, void *))
-{
-	if (alst)
+	i = 0;
+	if (str)
 	{
-		del((*alst)->name, (*alst)->value);
-		ft_memdel((void**)alst);
-	}
-}
-
-void		free_env(t_env **alst, void (*del)(void *, void *))
-{
-	t_env	*li;
-
-	if (alst)
-	{
-		while (*alst)
+		while (str[i])
 		{
-			li = (*alst)->next;
-			ft_one_envdel(&(*alst), del);
-			*alst = li;
+			if (!ft_isalnum(str[i]) && str[i] != '_')
+				break ;
+			ft_putchar_fd(str[i], fd);
+			i++;
 		}
 	}
 }
