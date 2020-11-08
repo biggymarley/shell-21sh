@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:10:24 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/08 03:15:58 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/08 04:16:42 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ int				dupexe(char **cmd, t_env **env, int cmd_nbr, t_cmd *cmd_list)
 
 int				fillter(char ***cmd, t_cmd *cmd_list, t_env **env)
 {
-	if (if_home(&cmd_list->cmd, (*env)) < 0)
-		return (0);
-	if (!(ft_check_dollars(&cmd_list->cmd, (*env))))
+	if (if_slash_or_dot(cmd_list->cmd) == -1)
 		return (0);
 	if (!((*cmd) = cmd_finder((*env), cmd_list->cmd)) && !cmd_list->red)
 	{

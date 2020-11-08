@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/08 03:19:37 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/08 04:11:39 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,5 @@ t_env			*env_dollar_finder(t_env *env, char *name);
 int				ft_check_dollars(char **str, t_env *env);
 int				ft_exit(char **str);
 int				if_exit(char **cmd);
+int				if_slash_or_dot(char *str);
 #endif

@@ -6,11 +6,36 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:15:52 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/07 01:16:54 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/08 04:15:40 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/sh21.h"
+
+int			if_slash_or_dot(char *str)
+{
+	if (str)
+		if (str[0] == '/' ||
+			(str[0] == '.' && str[1] == '/'))
+			if (access(str, F_OK) == -1)
+			{
+				ft_putstr(str);
+				ft_putendl_fd(" : no such file or directory.", 2);
+				return (-1);
+			}
+	return (0);
+}
+
+int				filter(char **line, t_env *env)
+{
+	if (if_home(line, env) < 0)
+		return (0);
+	if (!(ft_check_dollars(line, env)))
+		return (0);
+	if (if_slash_or_dot(line[0]) == -1)
+		return (0);
+	return (1);
+}
 
 char			**cmd_finder(t_env *env, char *cmd)
 {
@@ -28,6 +53,11 @@ char			**cmd_finder(t_env *env, char *cmd)
 		}
 		line = ft_strsplit(ptr, ' ');
 		rebase_all(line);
+		if(!filter(line, env))
+		{
+			ft_strdel(&ptr);
+			return(NULL);	
+		}
 		if (!if_bult(line))
 			line = found_func(env, line[0], line);
 		ft_strdel(&ptr);
