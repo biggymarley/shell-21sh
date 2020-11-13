@@ -6,13 +6,13 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:15:52 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/08 04:15:40 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/13 22:17:23 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/sh21.h"
 
-int			if_slash_or_dot(char *str)
+int				if_slash_or_dot(char *str)
 {
 	if (str)
 		if (str[0] == '/' ||
@@ -29,11 +29,20 @@ int			if_slash_or_dot(char *str)
 int				filter(char **line, t_env *env)
 {
 	if (if_home(line, env) < 0)
+	{
+		delkill(line);
 		return (0);
+	}
 	if (!(ft_check_dollars(line, env)))
+	{
+		delkill(line);
 		return (0);
+	}
 	if (if_slash_or_dot(line[0]) == -1)
+	{
+		delkill(line);
 		return (0);
+	}
 	return (1);
 }
 
@@ -53,10 +62,10 @@ char			**cmd_finder(t_env *env, char *cmd)
 		}
 		line = ft_strsplit(ptr, ' ');
 		rebase_all(line);
-		if(!filter(line, env))
+		if (!filter(line, env))
 		{
 			ft_strdel(&ptr);
-			return(NULL);	
+			return (NULL);
 		}
 		if (!if_bult(line))
 			line = found_func(env, line[0], line);

@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:28:50 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/08 03:52:39 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/13 22:13:59 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				check(t_env **lst, char *str)
 	return (0);
 }
 
-int			error_cmd(char *cmd, char *str)
+int				error_cmd(char *cmd, char *str)
 {
 	if (!(ft_strncmp(&cmd[0], "./", ft_strlen("./"))))
 	{
@@ -85,7 +85,7 @@ char			**found_func(t_env *lst, char *cmd, char **str)
 		if (access(ff.paths[ff.i], F_OK) == 0)
 			break ;
 	}
-	if(!(error_cmd(str[0], ff.paths[ff.i])))
+	if (!(error_cmd(str[0], ff.paths[ff.i])))
 		return (NULL);
 	ft_strdel(&str[0]);
 	str[0] = ft_strdup(ff.paths[ff.i]);
