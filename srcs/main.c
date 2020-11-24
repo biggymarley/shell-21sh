@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:25:56 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/13 22:12:40 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/24 22:57:56 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void			func(int signal)
 
 void			alias(t_cmd *cmd)
 {
-	alias_checker(&cmd->cmd);
+	if (cmd->cmd)
+		alias_checker(&cmd->cmd);
 	if (cmd->pipe)
 		alias(cmd->pipe);
 	if (cmd->sep)
@@ -28,16 +29,13 @@ void			alias(t_cmd *cmd)
 
 int				read_parse(t_core *core)
 {
+	char *tmp;
+
 	ft_putstr("\033[1;91mbiggyshell{v.200}$>\033[1;96m ");
 	get_next_line(0, &(*core).buff);
 	if (((*core).buff && (*core).buff[0] && (*core).buff[0] == '\n'))
 	{
 		ft_strdel(&(*core).buff);
-		return (0);
-	}
-	else if (!(*core).buff && !(*core).buff[0])
-	{
-		free((*core).buff);
 		return (0);
 	}
 	if (((*core).cmd_line = parser(&(*core).buff)) == NULL)

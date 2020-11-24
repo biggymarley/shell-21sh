@@ -6,7 +6,7 @@
 #    By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/27 02:25:57 by afaragi           #+#    #+#              #
-#    Updated: 2020/11/08 02:47:14 by afaragi          ###   ########.fr        #
+#    Updated: 2020/11/24 22:57:21 by afaragi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIBFT_PATH = libft/
 INC = -I ./include/ -I $(LIBFT_PATH)
 SRC_DIR = srcs/
 OBJ_DIR = obj/
-FLAGS = -Wall -Wextra -Werror -ggdb3
+FLAGS = 
 
 SRC_NAME =	main.c \
 			environ_to_list.c \
@@ -56,7 +56,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 			@make -s -C $(LIBFT_PATH)
-			@gcc $(FLAGS) $(OBJS) $(INC) -L $(LIBFT_PATH) -lft -o $(NAME)
+			@gcc $(FLAGS)  $(OBJS) $(INC) -L $(LIBFT_PATH) -lft -o $(NAME)
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 			@mkdir -p obj
 			@gcc -c $(INC) $^ -o $@

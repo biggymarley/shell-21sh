@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 02:12:10 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/07 22:54:03 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/24 05:00:15 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char		*ft_strdup_from_to(const char *s, int start, int end)
 	{
 		d[c++] = s[start++];
 	}
-	d[c++] = '\0';
+	d[c] = '\0';
 	rzlt = ft_strtrim(d);
 	free(d);
 	if (!rzlt[0])

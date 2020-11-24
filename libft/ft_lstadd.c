@@ -6,13 +6,13 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 04:52:02 by afaragi           #+#    #+#             */
-/*   Updated: 2020/01/24 00:17:34 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/23 22:36:00 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd(t_list **alst, t_list *new)
+void	ft_lstadd(t_listp **alst, t_listp *new)
 {
 	if (alst)
 	{

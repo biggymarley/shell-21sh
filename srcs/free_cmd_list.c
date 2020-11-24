@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 02:18:31 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/07 02:03:47 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/24 22:51:05 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		del_cmd_lst(t_cmd **cmd)
 	if ((*cmd))
 	{
 		if ((*cmd)->cmd)
-			free((*cmd)->cmd);
+			ft_strdel(&(*cmd)->cmd);
 		if ((*cmd)->red)
 			del_red_lst(cmd);
 		if ((*cmd)->sep)

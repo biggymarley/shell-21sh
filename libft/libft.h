@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:13:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/08 02:53:31 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/24 01:23:24 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@
 # include <pwd.h>
 # include <signal.h>
 # include "../include/sh21.h"
-
 # define BUFF_SIZE 1
 
-typedef	struct		s_list
+typedef	struct		s_listp
 {
 	char			*content;
 	struct stat		st;
 	size_t			content_size;
 	char			*path;
-	struct s_list	*next;
-}					t_list;
+	struct s_listp	*next;
+}					t_listp;
 
 void				ft_putnbr(int n);
 void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
@@ -98,17 +97,17 @@ int					ft_countw(char const *s, char c);
 int					ft_ctc(char const *s, char c);
 int					ft_count_size(char const *s);
 void				ft_remplir(char *dest, char const *src, int start, int end);
-void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
-void				ft_lstiter(t_list *lst, void (*fu)(t_list *elem));
-t_list				*ft_lstmap(t_list *lst, t_list *(*fu)(t_list *elem));
+void				ft_lstdelone(t_listp **alst, void (*del)(void *, size_t));
+void				ft_lstdel(t_listp **alst, void (*del)(void *, size_t));
+void				ft_lstadd(t_listp **alst, t_listp *new);
+void				ft_lstiter(t_listp *lst, void (*fu)(t_listp *elem));
+t_listp				*ft_lstmap(t_listp *lst, t_listp *(*fu)(t_listp *elem));
 char				*ft_isspace(const char *str);
 int					ft_intcount(int n);
-t_list				*ft_lstpush(t_list **alst, t_list *new);
-void				ft_deletlist(t_list **alst,
+t_listp				*ft_lstpush(t_listp **alst, t_listp *new);
+void				ft_deletlist(t_listp **alst,
 						void (*del)(void *, size_t, void *));
-void				ft_deletone(t_list **alst,
+void				ft_deletone(t_listp **alst,
 						void (*del)(void *, size_t, void *));
 char				**ft_strwhitesplit(char const *s);
 void				ft_whiteremplire(char *r, char const *s);

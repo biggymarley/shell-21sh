@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 03:43:10 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/07 03:43:29 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/24 22:55:47 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				pipe_parser(t_cmd **cmd_list, char **cmd, int i)
 	}
 	(*cmd_list)->pipe = (t_cmd *)ft_memalloc(sizeof(t_cmd));
 	(*cmd_list) = (*cmd_list)->pipe;
-	if (!(*cmd)[i + 1] && i > 0)
+	if ((*cmd)[i] && !(*cmd)[i + 1] && i > 0)
 		pipe_reader(cmd);
 	return (1);
 }

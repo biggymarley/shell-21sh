@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 01:51:26 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/07 04:06:19 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/24 22:56:18 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int				red_core(t_red *red, int *fd_handler, int *fd)
 {
 	if (!exec_red(red, fd_handler))
 	{
-		close(fd[1]);
-		close(fd[0]);
 		close((*fd_handler));
 		return (0);
 	}
@@ -90,8 +88,6 @@ int				red_core(t_red *red, int *fd_handler, int *fd)
 			red->rfd == fd[0] || red->rfd == fd[1])
 		{
 			ft_putendl_fd("\abad file descriptor", 2);
-			close(fd[1]);
-			close(fd[0]);
 			return (0);
 		}
 	}
@@ -109,7 +105,11 @@ int				red_duper(t_red *red)
 	while (red)
 	{
 		if (!(red_core(red, &fd_handler, fd)))
+		{
+			close(fd[1]);
+			close(fd[0]);
 			return (0);
+		}
 		fd_handler = 0;
 		red = red->next;
 	}
