@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 02:42:09 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/24 22:38:28 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/12/01 02:42:09 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void		pipe_reader(char **str)
 	buff = NULL;
 	while (1)
 	{
-		ft_putstr("pipe>");
 		get_next_line(0, &buff);
 		if (buff && buff[0] != '\n')
 			break ;

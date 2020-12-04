@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 01:26:51 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/24 22:58:27 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/11/25 02:53:17 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define RED_STDOUT_ERR 256
 # include "../libft/libft.h"
 # include "vars.h"
+# include "../21_readline/sh21.h"
 
 void			printer();
 void			env_to_list(t_env **lst, char **env);

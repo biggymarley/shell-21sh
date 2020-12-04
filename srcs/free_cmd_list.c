@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 02:18:31 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/24 22:51:05 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/12/02 04:36:40 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		del_red_lst(t_cmd **cmd)
 
 	while ((*cmd)->red)
 	{
-		free((*cmd)->red->file);
+		ft_strdel(&(*cmd)->red->file);
 		(*cmd)->red->lfd = 0;
 		(*cmd)->red->rfd = 0;
 		(*cmd)->red->type = 0;

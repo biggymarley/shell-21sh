@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 00:49:40 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/07 05:13:21 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/12/01 05:21:14 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		read_herdoc(t_red *red)
 		ft_putstr("$-herdoc> ");
 		if (!(read(0, buff, 1000)))
 			break ;
-		if (buff[0] != '\n' && !ft_strncmp(buff, key, (ft_strlen(key) - 1)))
+		if (buff[0] != '\n' && !ft_strncmp(buff, key, (ft_strlen(buff) - 1)))
 			break ;
 		if ((red->type & HERDOC) && (red->type & CLOSE_RFD))
 			tabs_skipper(buff);

@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:15:52 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/24 01:32:56 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/12/02 03:54:26 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				filtter(char **line, t_env *env)
 	if (if_slash_or_dot(line[0]) == -1)
 	{
 		delkill(line);
-		return (0);
+		return (1);
 	}
 	return (1);
 }
@@ -65,6 +65,7 @@ char			**cmd_finder(t_env *env, char *cmd)
 		if (!filtter(line, env))
 		{
 			ft_strdel(&ptr);
+			// delkill(line);
 			return (NULL);
 		}
 		if (!if_bult(line))

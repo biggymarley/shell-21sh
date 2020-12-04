@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:10:24 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/24 22:58:06 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/12/02 03:18:52 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,18 @@ void			execute_all(t_dupexe *dupexe, char **cmd, t_env **env)
 	if (!(*dupexe).built_cmd)
 	{
 		execve(cmd[0], cmd, (*dupexe).nev);
-		if (access(cmd[0], F_OK) != 0)
+		if(cmd[0])
 		{
-			ft_putstr_fd(cmd[0], 2);
-			ft_putstr_fd(": no such file or directory.\n", 2);
-		}
-		else
-		{
-			ft_putstr_fd(cmd[0], 2);
-			ft_putstr_fd(": permision denied\n", 2);
+			if (access(cmd[0], F_OK) != 0)
+			{
+				ft_putstr_fd(cmd[0], 2);
+				ft_putstr_fd(": no such file or directory.\n", 2);
+			}
+			else
+			{
+				ft_putstr_fd(cmd[0], 2);
+				ft_putstr_fd(": permision denied\n", 2);
+			}
 		}
 	}
 	else if ((*dupexe).built_cmd)
@@ -77,18 +80,16 @@ int				fillter(char ***cmd, t_cmd *cmd_list, t_env **env)
 {
 	if (cmd_list->cmd == NULL)
 		return (0);
-	if (if_slash_or_dot(cmd_list->cmd) == -1)
-		return (0);
 	if (!((*cmd) = cmd_finder((*env), cmd_list->cmd)) && !cmd_list->red)
 	{
 		delkill((*cmd));
 		return (0);
 	}
-	if ((*cmd) && !(*cmd)[0] && !cmd_list->red)
-	{
-		delkill((*cmd));
-		return (0);
-	}
+	// if ((*cmd) && !(*cmd)[0] && !cmd_list->red)
+	// {
+	// 	delkill((*cmd));
+	// 	return (0);
+	// }
 	return (1);
 }
 

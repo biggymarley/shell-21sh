@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 23:28:50 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/24 01:32:57 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/12/02 03:55:35 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ int				check(t_env **lst, char *str)
 	if (ft_strchr(str, '/'))
 		if (access(str, F_OK) == 0)
 			return (1);
-	*lst = search_env(*lst, "PATH");
+	if(!(*lst = search_env(*lst, "PATH")))
+	{
+		ft_putstr_fd("\aSHELL: command not found: ", 2);
+		ft_putendl_fd(str, 2);
+		return (0);
+	}
 	return (0);
 }
 
@@ -55,6 +60,7 @@ int				error_cmd(char *cmd, char *str)
 	{
 		ft_putstr_fd("\aSHELL: command not found: ", 2);
 		ft_putendl_fd(cmd, 2);
+		return(0);
 	}
 	return (1);
 }
@@ -77,16 +83,26 @@ char			**found_func(t_env *lst, char *cmd, char **str)
 	if (check(&lst, str[0]) == 1)
 		return (str);
 	if (lst == NULL)
-		return (NULL);
-	ff.paths = ft_strsplit(lst->value, ':');
-	while (ff.paths[++ff.i])
 	{
-		join_path(&ff, cmd);
-		if (access(ff.paths[ff.i], F_OK) == 0)
-			break ;
+		delkill(str);
+		return (NULL);
+	}
+	ff.paths = ft_strsplit(lst->value, ':');
+	if(ff.paths)
+	{
+		while (ff.paths[++ff.i])
+		{
+			join_path(&ff, cmd);
+			if (access(ff.paths[ff.i], F_OK) == 0)
+				break ;
+		}
 	}
 	if (!(error_cmd(str[0], ff.paths[ff.i])))
+	{
+		delkill(ff.paths);
+		delkill(str);
 		return (NULL);
+	}
 	ft_strdel(&str[0]);
 	str[0] = ft_strdup(ff.paths[ff.i]);
 	delkill(ff.paths);

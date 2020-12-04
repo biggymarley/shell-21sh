@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 04:43:33 by afaragi           #+#    #+#             */
-/*   Updated: 2020/11/24 22:56:08 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/12/02 04:36:32 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ int				check_init(char **cmd_line, t_parser *parser)
 	(*parser).ptr = (*cmd_line);
 	(*cmd_line) = ft_strtrim((*cmd_line));
 	free((*parser).ptr);
-	if (!(*cmd_line) || !ft_strlen((*cmd_line)))
+	if (!(*cmd_line) && !ft_strlen((*cmd_line)))
+	{
+		ft_memdel((void **)&(*parser).cmd_list);
 		return (0);
+	}
 	cots_check(cmd_line, 0);
 	return (1);
 }
@@ -60,14 +63,14 @@ int				core_parser(char **cmd_line, t_parser *p)
 {
 	if (!((*p).cmd_list->cmd = ft_strdup_from_to((*cmd_line), (*p).li, (*p).i)))
 	{
-		errors(0, &(*p).cmd_list);
+		errors(0, &(*p).head);
 		return (0);
 	}
 	if (!(red_parser(&(*p).cmd_list)))
 		return (0);
 	if (!(sep_pipe_alloc(&(*p).cmd_list, &(*cmd_line), (*p).i, &(*p).last_sep)))
 	{
-		errors(0, &(*p).cmd_list);
+		errors(0, &(*p).head);
 		return (0);
 	}
 	(*p).i++;
@@ -86,7 +89,9 @@ t_cmd			*parser(char **cmd_line)
 		if ((*cmd_line)[p.i] == '|' || (*cmd_line)[p.i] == ';')
 		{
 			if (!(core_parser(cmd_line, &p)))
+			{
 				return (NULL);
+			}
 			continue;
 		}
 		p.i++;
